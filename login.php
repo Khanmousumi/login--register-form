@@ -1,3 +1,58 @@
+ <?php
+
+// session_start();
+
+// include "../db.php";
+
+// // $message = "";
+
+// if (isset($_POST['login'])) {
+
+//     $email = trim($_POST['email']);
+//     $password = $_POST['password'];
+
+//     $sql = "SELECT * FROM users WHERE email = ?";
+
+//     $stmt = mysqli_prepare($conn, $sql);
+
+//     mysqli_stmt_bind_param($stmt, "s", $email);
+
+//     mysqli_stmt_execute($stmt);
+
+//     $result = mysqli_stmt_get_result($stmt);
+
+//     if (mysqli_num_rows($result) == 1) {
+
+//         $user = mysqli_fetch_assoc($result);
+
+//         if (password_verify($password, $user['password'])) {
+
+//             $_SESSION['user_id'] = $user['id'];
+//             $_SESSION['user_name'] = $user['name'];
+//             $_SESSION['user_email'] = $user['email'];
+//             $_SESSION['user_phone'] = $user['phone'];
+
+//             header("Location: ../dashboard/dashboard.php");
+//             exit();
+
+//         } else {
+
+//             $message = "Incorrect password!";
+
+//         }
+
+//     } else {
+
+//         $message = "Email not found!";
+
+//     }
+
+//     mysqli_stmt_close($stmt);
+// }
+
+?> 
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -204,14 +259,14 @@
             Please login to your account
         </p>
 
-        <form>
+        <form method="POST" >
 
             <!-- Email -->
             <div class="input-box">
                 <label>Email Address</label>
 
                 <input
-                    type="email"
+                    type="email" name="email"
                     placeholder="Enter your email"
                     required
                 >
@@ -222,7 +277,7 @@
                 <label>Password</label>
 
                 <input
-                    type="password"
+                    type="password" name="password"
                     placeholder="Enter your password"
                     required
                 >
@@ -243,7 +298,7 @@
             </div>
 
             <!-- Login Button -->
-            <button type="submit">
+            <button type="submit" class="login">
                 Login
             </button>
 
