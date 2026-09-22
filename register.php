@@ -1,204 +1,320 @@
 
+<?php
+$conn=mysqli_connect("localhost","root","","admin_system");
+
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+if (isset($_POST['register'])) {
+
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $phonenumber = $_POST['phonenumber'];
+    $password = $_POST['password'];
+   $query= mysqli_query($conn,"INSERT INTO `users`( `fullname`, `email`, `phonenumber`, `password`) VALUES ('$fullname','$email','$phonenumber','$password')");
+
+
+    if ($query) {
+
+        echo "<script>
+                alert('Successfully Submitted');
+                window.location.href='../login/login.php';
+              </script>";
+
+    } else {
+
+        echo "Database Error: " . mysqli_error($conn);
+    }
+
+}
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+
+    <title>Responsive Login Form</title>
 
     <style>
-        ```css
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Body */
-body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    padding: 20px;
-}
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Main Container */
-.container {
-    width: 100%;
-    max-width: 500px;
-}
+        /* Body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
 
-/* Form Box */
-.form-box {
-    background: #ffffff;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-/* Heading */
-.form-box h2 {
-    text-align: center;
-    color: #333;
-    font-size: 30px;
-    margin-bottom: 8px;
-}
+            background: linear-gradient(135deg, #667eea, #764ba2);
 
-.form-box > p {
-    text-align: center;
-    color: #777;
-    margin-bottom: 25px;
-}
+            padding: 20px;
+        }
 
-/* Input Group */
-.input-group {
-    margin-bottom: 18px;
-}
+        /* Login Box */
+        .login-box {
+            width: 100%;
+            max-width: 420px;
 
-.input-group label {
-    display: block;
-    margin-bottom: 7px;
-    color: #333;
-    font-weight: bold;
-}
+            background: #ffffff;
+            padding: 40px;
 
-.input-group input {
-    width: 100%;
-    padding: 13px 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    outline: none;
-    font-size: 15px;
-    transition: 0.3s;
-}
+            border-radius: 20px;
 
-.input-group input:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
-}
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
 
-/* Terms */
-.terms {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 10px 0 20px;
-    color: #666;
-    font-size: 14px;
-}
+        /* Heading */
+        .login-box h1 {
+            text-align: center;
+            color: #333;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
 
-.terms input {
-    width: 16px;
-    height: 16px;
-}
+        /* Subtitle */
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
 
-/* Button */
-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        /* Input Group */
+        .input-box {
+            margin-bottom: 20px;
+        }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
+        .input-box label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
 
-/* Login Text */
-.login-text {
-    margin-top: 20px;
-    text-align: center;
-    color: #666;
-}
+        .input-box input {
+            width: 100%;
+            padding: 13px 15px;
 
-.login-text a {
-    color: #667eea;
-    font-weight: bold;
-    text-decoration: none;
-}
+            border: 1px solid #ddd;
+            border-radius: 10px;
 
-.login-text a:hover {
-    text-decoration: underline;
-}
+            outline: none;
+            font-size: 14px;
 
-/* Responsive */
-@media (max-width: 500px) {
-    body {
-        padding: 15px;
-    }
+            transition: 0.3s;
+        }
 
-    .form-box {
-        padding: 25px 20px;
-    }
+        /* Input Focus */
+        .input-box input:focus {
+            border-color: #667eea;
 
-    .form-box h2 {
-        font-size: 25px;
-    }
-}
+            box-shadow:
+                0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
 
+        /* Options */
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .options label {
+            color: #555;
+        }
+
+        .options input {
+            margin-right: 5px;
+        }
+
+        .options a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login Button */
+        button {
+            width: 100%;
+            padding: 13px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: linear-gradient(135deg, #667eea, #764ba2);
+
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        /* Register */
+        .register {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 14px;
+            color: #666;
+        }
+
+        .register a {
+            color: #667eea;
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .login-box {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+
+            .login-box h1 {
+                font-size: 25px;
+            }
+
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="form-box">
+    <div class="login-box">
 
-            <h2>Create Account</h2>
-            <p>Register your account below</p>
+        <h1>Welcome Back!</h1>
 
-            <form>
+        <p class="subtitle">
+            Please login to your account
+        </p>
 
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
-                </div>
+        <form method="POST" >
 
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
+        <div class="input-box">
+                <label>Fullname</label>
 
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="Enter your phone number" required>
-                </div>
+                <input
+                    type="text" name="fullname"
+                    placeholder="Enter your fullname"
+                    required
+                >
+            </div>
 
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Enter your password" required>
-                </div>
 
-                <div class="input-group">
-                    <label>Confirm Password</label>
-                    <input type="password" placeholder="Confirm your password" required>
-                </div>
 
-                <div class="terms">
-                    <input type="checkbox" required>
-                    <span>I agree to the Terms & Conditions</span>
-                </div>
+            <!-- Email -->
+            <div class="input-box">
+                <label>Email</label>
 
-                <button type="submit">Register Now</button>
+                <input
+                    type="text" name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
 
-                <p class="login-text">
-                    Already have an account?
-                    <a href="../login/login.php">Login</a>
-                </p>
+            <div class="input-box">
+                <label>Phonenumber</label>
 
-            </form>
-        </div>
+                <input
+                    type="tel" name="phonenumber"
+                    placeholder="Enter your phonenumber"
+                    required
+                >
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+                <label>Password</label>
+
+                <input
+                    type="password" name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <!-- Remember & Forgot -->
+            <div class="options">
+
+                <label>
+                    <input type="checkbox">
+                    Remember me
+                </label>
+
+                <a href="#">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" name="register" >
+                register
+            </button>
+
+            <!-- Register -->
+            <p class="register">
+                Don't have an account?
+                <a href="../login/login.php">
+                    login
+                </a>
+            </p>
+
+        </form>
+
     </div>
 
 </body>
