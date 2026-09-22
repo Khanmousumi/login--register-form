@@ -214,7 +214,7 @@
                 <label>Email Address</label>
 
                 <input
-                    type="email" name="email"
+                    type="text" name="email"
                     placeholder="Enter your email"
                     required
                 >
